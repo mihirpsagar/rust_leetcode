@@ -27,10 +27,6 @@ impl Solution {
     }
 }
 
-fn main() {
-    println!("Hello world!");
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -38,7 +34,7 @@ mod tests {
     #[test]
     fn test1() {
         let sol = Solution {};
-        // assert_eq!(Solution::first_bad_version(&sol, 5), 4);
+        assert_eq!(Solution::first_bad_version(&sol, 5), 4);
         assert_eq!(Solution::first_bad_version(&sol, 2147483647), 2147483647);
     }
 }
