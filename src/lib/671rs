@@ -1,0 +1,104 @@
+// Time taken: 23:15, 23:23 -> Wrong, 23:39, 23:48, 23:57 -> Acc
+struct Solution {}
+
+// Definition for a binary tree node.
+#[derive(Debug, PartialEq, Eq)]
+pub struct TreeNode {
+    pub val: i32,
+    pub left: Option<Rc<RefCell<TreeNode>>>,
+    pub right: Option<Rc<RefCell<TreeNode>>>,
+}
+
+impl TreeNode {
+    #[inline]
+    pub fn new(val: i32) -> Self {
+        TreeNode {
+            val,
+            left: None,
+            right: None,
+        }
+    }
+}
+
+use std::cell::RefCell;
+use std::collections::BinaryHeap;
+use std::rc::Rc;
+impl Solution {
+    pub fn find_second_minimum_value(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
+        let mut max_heap = BinaryHeap::new();
+        let mut stack = Vec::new();
+        stack.push(root);
+
+        while !stack.is_empty() {
+            if let Some(node) = stack.pop().and_then(|node| node) {
+                let node = node.borrow();
+                if max_heap.len() < 2 && max_heap.iter().filter(|&&x| x == node.val).count() == 0 {
+                    max_heap.push(node.val);
+                } else if *max_heap.peek().unwrap() > node.val
+                    && max_heap.iter().filter(|&&x| x == node.val).count() == 0
+                {
+                    max_heap.pop();
+                    max_heap.push(node.val);
+                }
+                stack.push(node.left.clone());
+                stack.push(node.right.clone());
+            }
+        }
+
+        if max_heap.len() != 2 {
+            return -1;
+        }
+
+        return *max_heap.peek().unwrap();
+    }
+
+    // pub fn find_second_minimum_value(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
+    //     let mut result = None;
+    //     let mut stack = Vec::new();
+    //     let mut curr = root;
+
+    //     while !stack.is_empty() || curr.is_some() {
+    //         while let Some(node) = curr {
+    //             stack.push(node.clone());
+    //             curr = node.borrow().left.clone();
+    //         }
+
+    //         if let Some(node) = stack.pop() {
+    //             let node = node.borrow();
+    //             if let Some(prev_val) = result {
+    //                 if prev_val != node.val {
+    //                     return node.val;
+    //                 }
+    //             } else {
+    //                 result = Some(node.val);
+    //             }
+    //             curr = node.right.clone();
+    //         }
+    //     }
+
+    //     return -1;
+    // }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test1() {
+        let root = Some(Rc::new(RefCell::new(TreeNode {
+            val: 5,
+            left: Some(Rc::new(RefCell::new(TreeNode {
+                val: 8,
+                left: None,
+                right: None,
+            }))),
+            right: Some(Rc::new(RefCell::new(TreeNode {
+                val: 5,
+                left: None,
+                right: None,
+            }))),
+        })));
+        Solution::find_second_minimum_value(root);
+    }
+}
