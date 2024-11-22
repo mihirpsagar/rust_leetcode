@@ -1,6 +1,6 @@
 use std::collections::HashSet;
 
-// Time taken: 16:15, 16:26, 16:39 -> TLE, 17:41 -> Acc, 17:59 -> Acc
+// Time taken: 16:15, 16:26, 16:39 -> TLE, 17:41 -> Acc, 17:59 -> Optimized
 struct Solution {}
 
 impl Solution {
