@@ -47,6 +47,44 @@ impl Solution {
         return result;
     }
 
+    // pub fn three_sum(mut nums: Vec<i32>) -> Vec<Vec<i32>> {
+    //     let mut set = HashSet::new();
+    //     nums.sort();
+
+    //     let mut idx1 = 0;
+    //     while idx1 < nums.len() - 2 {
+    //         let mut left = idx1 + 1;
+    //         let mut right = nums.len() - 1;
+    //         while left < right {
+    //             let sum = nums[idx1] + nums[left] + nums[right];
+    //             match sum.cmp(&0) {
+    //                 Ordering::Equal => {
+    //                     let mut arr = vec![nums[idx1], nums[left], nums[right]];
+    //                     arr.sort();
+    //                     set.insert(arr);
+    //                     left += 1;
+    //                     while left < nums.len() && nums[left] == nums[left - 1] {
+    //                         left += 1;
+    //                     }
+    //                 }
+    //                 Ordering::Greater => {
+    //                     right -= 1;
+    //                 }
+    //                 Ordering::Less => {
+    //                     left += 1;
+    //                 }
+    //             }
+    //         }
+    //         idx1 += 1;
+    //     }
+
+    //     let mut result = Vec::new();
+    //     for arr in set {
+    //         result.push(arr);
+    //     }
+    //     return result;
+    // }
+
     // Second try -> 853 ms
     // pub fn three_sum(nums: Vec<i32>) -> Vec<Vec<i32>> {
     //     let mut result_set: HashSet<Vec<i32>> = HashSet::new();

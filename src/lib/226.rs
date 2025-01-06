@@ -23,18 +23,31 @@ impl TreeNode {
 use std::cell::RefCell;
 use std::rc::Rc;
 impl Solution {
+    // pub fn invert_tree(root: Option<Rc<RefCell<TreeNode>>>) -> Option<Rc<RefCell<TreeNode>>> {
+    //     root.map(|node| {
+    //         let node = node.borrow();
+    //         let mut new_node = TreeNode {
+    //             val: node.val,
+    //             left: None,
+    //             right: None,
+    //         };
+    //         new_node.left = Self::invert_tree(node.right.clone());
+    //         new_node.right = Self::invert_tree(node.left.clone());
+    //         Rc::new(RefCell::new(new_node))
+    //     })
+    // }
+
     pub fn invert_tree(root: Option<Rc<RefCell<TreeNode>>>) -> Option<Rc<RefCell<TreeNode>>> {
-        root.map(|node| {
-            let node = node.borrow();
-            let mut new_node = TreeNode {
-                val: node.val,
-                left: None,
-                right: None,
-            };
-            new_node.left = Self::invert_tree(node.right.clone());
-            new_node.right = Self::invert_tree(node.left.clone());
-            Rc::new(RefCell::new(new_node))
-        })
+        if let Some(node) = root.clone() {
+            let mut node = node.borrow_mut();
+            let left = Self::invert_tree(node.left.take());
+            let right = Self::invert_tree(node.right.take());
+            node.left = right;
+            node.right = left;
+            return root;
+        } else {
+            return None;
+        }
     }
 }
 

@@ -75,10 +75,6 @@ impl LRUCache {
  * obj.put(key, value);
  */
 
-fn main() {
-    println!("Hello world!");
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;

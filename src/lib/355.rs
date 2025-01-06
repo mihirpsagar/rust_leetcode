@@ -90,10 +90,6 @@ impl Twitter {
  * obj.unfollow(followerId, followeeId);
  */
 
-fn main() {
-    println!("Hello world!");
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;

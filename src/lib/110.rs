@@ -25,31 +25,52 @@ impl TreeNode {
 }
 
 impl Solution {
-    pub fn is_balanced(root: Option<Rc<RefCell<TreeNode>>>) -> bool {
-        match root {
-            None => {
-                return true;
-            }
-            Some(node) => {
-                let (left_res, left_depth) = Self::is_balanced_rec(&node.borrow().left);
-                let (right_res, right_depth) = Self::is_balanced_rec(&node.borrow().right);
+    // pub fn is_balanced(root: Option<Rc<RefCell<TreeNode>>>) -> bool {
+    //     match root {
+    //         None => {
+    //             return true;
+    //         }
+    //         Some(node) => {
+    //             let (left_res, left_depth) = Self::is_balanced_rec(&node.borrow().left);
+    //             let (right_res, right_depth) = Self::is_balanced_rec(&node.borrow().right);
 
-                return left_res && right_res && (left_depth.abs_diff(right_depth) < 2);
-            }
-        }
+    //             return left_res && right_res && (left_depth.abs_diff(right_depth) < 2);
+    //         }
+    //     }
+    // }
+
+    // pub fn is_balanced_rec(node: &Option<Rc<RefCell<TreeNode>>>) -> (bool, usize) {
+    //     match node {
+    //         None => {
+    //             return (true, 0);
+    //         }
+    //         Some(inner_node) => {
+    //             let (left_res, left_depth) = Self::is_balanced_rec(&inner_node.borrow().left);
+    //             let (right_res, right_depth) = Self::is_balanced_rec(&inner_node.borrow().right);
+    //             let balanced = left_res && right_res && (left_depth.abs_diff(right_depth) < 2);
+    //             return (balanced, cmp::max(left_depth, right_depth) + 1);
+    //         }
+    //     }
+    // }
+
+    pub fn is_balanced(root: Option<Rc<RefCell<TreeNode>>>) -> bool {
+        let mut result = true;
+        let _ = Self::is_balanced_rec(root, &mut result);
+        return result;
     }
 
-    pub fn is_balanced_rec(node: &Option<Rc<RefCell<TreeNode>>>) -> (bool, usize) {
-        match node {
-            None => {
-                return (true, 0);
+    pub fn is_balanced_rec(node: Option<Rc<RefCell<TreeNode>>>, mut result: &mut bool) -> i32 {
+        if let Some(node) = node {
+            let node = node.borrow();
+            let left = Self::is_balanced_rec(node.left.clone(), &mut result);
+            let right = Self::is_balanced_rec(node.right.clone(), &mut result);
+
+            if left.abs_diff(right) > 1 {
+                *result = false;
             }
-            Some(inner_node) => {
-                let (left_res, left_depth) = Self::is_balanced_rec(&inner_node.borrow().left);
-                let (right_res, right_depth) = Self::is_balanced_rec(&inner_node.borrow().right);
-                let balanced = left_res && right_res && (left_depth.abs_diff(right_depth) < 2);
-                return (balanced, cmp::max(left_depth, right_depth) + 1);
-            }
+            return 1 + std::cmp::max(left, right);
+        } else {
+            return 0;
         }
     }
 }
