@@ -3,6 +3,7 @@ pub mod binary_search;
 pub mod dfs;
 pub mod doubly_linked_list;
 pub mod heap_sort;
+pub mod kmp;
 pub mod lru_cache;
 pub mod max_heap;
 pub mod merge_sort;
