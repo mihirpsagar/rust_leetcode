@@ -12,3 +12,4 @@ pub mod quick_sort;
 pub mod reverse_linked_list;
 pub mod ring_buffer;
 pub mod tree_traversal;
+pub mod union_find;

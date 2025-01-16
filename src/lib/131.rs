@@ -1,5 +1,4 @@
 // Time taken: 23:37, 23:48, 23:55 -> Acc
-// mod dsa;
 
 use std::{
     cell::RefCell,
@@ -72,10 +71,6 @@ impl Solution {
         }
         return true;
     }
-}
-
-fn main() {
-    println!("Hello world!");
 }
 
 #[cfg(test)]
