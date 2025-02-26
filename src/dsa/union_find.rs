@@ -51,8 +51,11 @@ impl UnionFind {
             self.map.insert(val2, (val2, 0));
         }
 
-        let node1 = self.map.get(&val1).unwrap().clone();
-        let node2 = self.map.get(&val2).unwrap().clone();
+        let p1 = self.find(val1).unwrap();
+        let p2 = self.find(val2).unwrap();
+
+        let node1 = self.map.get(&p1).unwrap().clone();
+        let node2 = self.map.get(&p2).unwrap().clone();
 
         if node1.1 < node2.1 {
             self.map.insert(node1.0, (node2.0, node1.1));
