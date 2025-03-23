@@ -1,7 +1,11 @@
+pub mod bellman_ford;
 pub mod bfs;
 pub mod binary_search;
 pub mod dfs;
+pub mod dijkstra;
 pub mod doubly_linked_list;
+pub mod floyd_warshall;
+pub mod ford_fulkerson;
 pub mod heap_sort;
 pub mod kmp;
 pub mod kruskal_minimum_spanning_tree;
